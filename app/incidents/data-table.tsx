@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table"
+import prettifyDate from "~/helpers/dateTransform"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

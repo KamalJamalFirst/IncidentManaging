@@ -13,7 +13,7 @@ const overlay: CSSProperties | undefined = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, .9)',
+    backgroundColor: 'rgba(0, 0, 0, .6)',
     zIndex: 50
 }
 
@@ -30,8 +30,8 @@ export function NewIncident({ dispatch }: {dispatch: Dispatch<UnknownAction>}) {
   return (
     <>
         <div style={overlay}></div>
-        <Form method="post" className="w-2xl h-10" style={form} onSubmit={() => dispatch(changeNewIncidentState())}>
-            <div>
+        <Form method="post" className="bg-white w-2xl min-h-46 p-2 rounded-lg flex flex-col gap-4" style={form} onSubmit={() => dispatch(changeNewIncidentState())}>
+            <div className="flex flex-col gap-2 ">
                 <Input name="title" placeholder="Введите тему обращения" required/>
                 <Textarea name="description" placeholder="Введите текст обращения" required/>
             </div>

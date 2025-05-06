@@ -12,7 +12,7 @@ const overlay: CSSProperties | undefined = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, .9)',
+    backgroundColor: 'rgba(0, 0, 0, .6)',
     zIndex: 50
 }
 
@@ -34,7 +34,7 @@ export function AddInfo({ buttonDesc, id, dispatch }: {buttonDesc: "Заверш
   return (
     <>
         <div style={overlay}></div>
-        <Form method="put" className="w-2xl h-10" style={form} onSubmit={() => {
+        <Form method="put" className="bg-white w-2xl min-h-30 p-2 rounded-lg flex flex-col gap-4" style={form} onSubmit={() => {
             //let example = useLoaderData<typeof loader>();
             (statusMatch[buttonDesc] === "Завершен") ? dispatch(changeStateCompleted()) : dispatch(changeStateCancelled())
         }}>

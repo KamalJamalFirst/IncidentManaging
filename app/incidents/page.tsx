@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '~/helpers/store';
 import { changeNewIncidentState } from '~/helpers/modalNewIncidentSlice';
 import type { DateRange } from 'react-day-picker';
+import prettifyDate from '~/helpers/dateTransform';
 
 interface FilteredState {
     filter: boolean;
@@ -20,18 +21,19 @@ interface FilteredState {
 }
 
 export default function DemoPage({ loaderData }: {loaderData: Incident[]}) {
-
     const newIcident = useSelector((state: RootState) => state.newIncident.value);
     const dispatch = useDispatch();
     const [date, setDate] = useState<DateRange | undefined>();
     const [filtered, setFiltered] = useState<FilteredState>({ filter: false, filteredLoaderData: [], });
+    const prettify = prettifyDate(loaderData);
+    //console.log(prettify)
 
     useEffect(() => {
         if (date && date.from && date.to) {
             const dateFromtoString = +Date.parse(date.from.toString());
             const dateTotoString = +Date.parse(date.to.toString());
-            console.log(typeof +loaderData[0].created, typeof dateFromtoString, dateTotoString)
-            return setFiltered((prev) => ({ ...prev, "filter": true, "filteredLoaderData": loaderData.filter((incident: Incident) => ((+incident.created >= dateFromtoString) && (+incident.created <= dateTotoString)))}))
+            const effectFilter = loaderData.filter((incident: Incident) => ((+incident.created >= dateFromtoString) && (+incident.created <= dateTotoString)));
+            return setFiltered((prev) => ({ ...prev, "filter": true, "filteredLoaderData": effectFilter}))
         }
         return setFiltered((prev) => ({ ...prev, filter: false}))
     }, [date?.from, date?.to])
@@ -49,7 +51,7 @@ export default function DemoPage({ loaderData }: {loaderData: Incident[]}) {
 
                 {newIcident && createPortal(<NewIncident dispatch={dispatch} />, document.getElementById('test-task')!)}
             </div>
-            <DataTable columns={columns} data={filtered.filter ? filtered.filteredLoaderData : loaderData}/>
+            <DataTable columns={columns} data={filtered.filter ? filtered.filteredLoaderData : prettify}/>
         </div>
     )
 }

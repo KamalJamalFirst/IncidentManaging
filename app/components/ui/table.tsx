@@ -77,6 +77,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
 }
 
 function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+  //console.log({...props})
   return (
     <td
       data-slot="table-cell"
