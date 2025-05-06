@@ -32,7 +32,7 @@ export default function DemoPage({ loaderData }: {loaderData: Incident[]}) {
         if (date && date.from && date.to) {
             const dateFromtoString = +Date.parse(date.from.toString());
             const dateTotoString = +Date.parse(date.to.toString());
-            const effectFilter = loaderData.filter((incident: Incident) => ((+incident.created >= dateFromtoString) && (+incident.created <= dateTotoString)));
+            const effectFilter = prettifyDate(loaderData.filter((incident: Incident) => ((+incident.created >= dateFromtoString) && (+incident.created <= dateTotoString))));
             return setFiltered((prev) => ({ ...prev, "filter": true, "filteredLoaderData": effectFilter}))
         }
         return setFiltered((prev) => ({ ...prev, filter: false}))
