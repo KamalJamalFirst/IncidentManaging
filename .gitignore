@@ -35,3 +35,5 @@ build.utils.d.ts
 
 # v7 reference docs
 /public
+
+.gitignore
