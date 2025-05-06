@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const config_1 = __importDefault(require("./src/config/config"));
-const data_source_1 = require("./src/data-source");
+const config_1 = __importDefault(require("./config/config"));
+const data_source_1 = require("./data-source");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const incidentRoutes_1 = __importDefault(require("./src/routes/incidentRoutes"));
+const incidentRoutes_1 = __importDefault(require("./routes/incidentRoutes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());

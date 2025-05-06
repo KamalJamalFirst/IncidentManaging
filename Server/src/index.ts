@@ -1,10 +1,10 @@
 import "reflect-metadata"
-import config from './src/config/config';
-import { AppDataSource } from "./src/data-source"
+import config from './config/config';
+import { AppDataSource } from "./data-source"
 
 import express from 'express';
 import cors from 'cors'
-import router from './src/routes/incidentRoutes';
+import router from './routes/incidentRoutes';
 
 const app = express();
 
