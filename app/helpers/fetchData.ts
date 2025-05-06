@@ -1,7 +1,7 @@
 import type { Incident, IncidentChange, NewIncident } from "~/models/types"
 
 
-const serverUrl = 'http://localhost:3000/api/incidents'
+const serverUrl = 'http://localhost:3001/api/incidents'
 //const urlGetIncidents = 'http://localhost:3000/api/incidents'
 
 export const getIncidents = async (): Promise<Incident[]> => {

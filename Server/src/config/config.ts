@@ -8,7 +8,7 @@ interface Config {
 }
 
 const config: Config = {
-  port: 3000,
+  port: 3001,
   nodeEnv: 'development',
 };
 
