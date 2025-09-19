@@ -13,27 +13,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '~/helpers/store';
 import { changeNewIncidentState } from '~/helpers/modalNewIncidentSlice';
 import type { DateRange } from 'react-day-picker';
-import prettifyDate from '~/helpers/dateTransform';
+import dateFilteredVerbosed from '~/helpers/dateTransform';
+import { type FilteredState } from '~/models/types';
 
-interface FilteredState {
-    filter: boolean;
-    filteredLoaderData: Incident[]; // Declare the array type correctly
-}
+// REFACTOR
+// interface FilteredState {
+//     filter: boolean;
+//     filteredLoaderData: Incident[]; // Declare the array type correctly
+// }
 
 export default function DemoPage({ loaderData }: {loaderData: Incident[]}) {
     const newIcident = useSelector((state: RootState) => state.newIncident.value);
     const dispatch = useDispatch();
     const [date, setDate] = useState<DateRange | undefined>();
-    const [filtered, setFiltered] = useState<FilteredState>({ filter: false, filteredLoaderData: [], });
-    const prettify = prettifyDate(loaderData);
+    const [filtered, setFiltered] = useState<FilteredState>({ filter: false, filteredData: [], });
+    const dateVerbosed = dateFilteredVerbosed(loaderData)
     //console.log(prettify)
 
+    // REFACTOR
     useEffect(() => {
         if (date && date.from && date.to) {
-            const dateFromtoString = +Date.parse(date.from.toString());
-            const dateTotoString = +Date.parse(date.to.toString());
-            const effectFilter = prettifyDate(loaderData.filter((incident: Incident) => ((+incident.created >= dateFromtoString) && (+incident.created <= dateTotoString))));
-            return setFiltered((prev) => ({ ...prev, "filter": true, "filteredLoaderData": effectFilter}))
+            const dateFilteredOnDatePickerChange = dateFilteredVerbosed(loaderData, +Date.parse(date.from.toString()), +Date.parse(date.to.toString()));
+            return setFiltered((prev) => ({ ...prev, "filter": true, "filteredData": dateFilteredOnDatePickerChange}))
         }
         return setFiltered((prev) => ({ ...prev, filter: false}))
     }, [date?.from, date?.to])
@@ -51,7 +52,7 @@ export default function DemoPage({ loaderData }: {loaderData: Incident[]}) {
 
                 {newIcident && createPortal(<NewIncident dispatch={dispatch} />, document.getElementById('test-task')!)}
             </div>
-            <DataTable columns={columns} data={filtered.filter ? filtered.filteredLoaderData : prettify}/>
+            <DataTable columns={columns} data={filtered.filter ? filtered.filteredData : dateVerbosed}/>
         </div>
     )
 }

@@ -1,7 +1,5 @@
 "use client"
 
-import type { ColumnDef } from "@tanstack/react-table"
-
 import {
   flexRender,
   getCoreRowModel,
@@ -16,12 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table"
-import prettifyDate from "~/helpers/dateTransform"
+import type { DataTableProps } from "~/models/types"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-}
 
 export function DataTable<TData, TValue>({
   columns,

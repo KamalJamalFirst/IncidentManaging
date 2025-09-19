@@ -68,7 +68,7 @@ export const columns: ColumnDef<Incident>[] = [
                                             <Form method="put">
                                                 <input type="hidden" name="changeStatusTo" value="В работе" />
                                                 <input type="hidden" name="incidentId" value={rowInfo.id} />
-                                                <Button className="w-full" type="submit" name='action' value='inNewToWork'>Взять в работу</Button>
+                                                <Button className="w-full" type="submit">Взять в работу</Button>
                                             </Form>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem id={rowInfo.id}>

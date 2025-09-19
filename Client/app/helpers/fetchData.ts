@@ -11,64 +11,49 @@ export const getIncidents = async (): Promise<Incident[]> => {
             throw new Error(`Response status: ${response.status}`);
         }
         const incidentsList = response.json();
-        //console.log(incidentsList)
         return incidentsList;
     } catch (error) {
         throw error;
     }
 }
 
-export const createNewIncident = async (newIncident: NewIncident) => {
-    console.log(newIncident)
-    try {
-        const response = await fetch(`${serverUrl}/new`,{
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(newIncident),
-        });
-        if (response.status === 200) {
-            return {updated: true}
-        }
-        throw new Error(`Response status: ${response.status}`);
-    } catch (error) {
-        console.error(error);
-    }
+export const createNewIncident = async (newIncident: NewIncident): Promise<{updated: boolean} | Error> => {
+    const response = await fetch(`${serverUrl}/new`,{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            },
+        body: JSON.stringify(newIncident),
+    });
+    if (response.status === 200) {
+        return {updated: true}
+    };
+    return new Error(`Response status: ${response.status}`);
 }
 
-export const changeIncidentStatus = async (changeInfo: IncidentChange) => {
-    console.log(changeInfo)
-    try {
-        const response = await fetch(`${serverUrl}`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(changeInfo),
-        });
-        if (response.status === 200) {
-            return {updated: true}
-        }
-        throw new Error(`Response status: ${response.status}`);
-    } catch (error) {
-        console.error(error);
-    }
+export const changeIncidentStatus = async (changeInfo: IncidentChange): Promise<{updated: boolean} | Error> => {
+    const response = await fetch(`${serverUrl}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            },
+        body: JSON.stringify(changeInfo),
+    });
+    if (response.status === 200) {
+        return {updated: true}
+    };
+    return new Error(`Response status: ${response.status}`);
 }
 
-export const cancelIncidents = async () => {
-    try {
-        const response = await fetch(`${serverUrl}/cancel`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-              },
-        });
-        if (response.status === 200) {
-            return {updated: true}
-        }
-        throw new Error(`Response status: ${response.status}`);
-    } catch (error) {
-        console.error(error);
+export const cancelIncidents = async (): Promise<{updated: boolean} | Error> => {
+    const response = await fetch(`${serverUrl}/cancel`,{
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            },
+    });
+    if (response.status === 200) {
+        return {updated: true}
     }
+    return new Error(`Response status: ${response.status}`);
 }
